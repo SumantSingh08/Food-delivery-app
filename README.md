@@ -6,7 +6,7 @@ A sleek and responsive **Food Delivery Web App** built with **React 19**, **Redu
 
 ## 🚀 Live Demo
 
-> [Add your deployed link here if available – e.g., Netlify or Vercel]
+> (https://food-delivery-app-sumantsingh08s-projects.vercel.app/)
 
 ---
 
