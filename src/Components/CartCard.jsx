@@ -5,6 +5,7 @@ import { removeCart } from '../Redux/CartSlice';
 import { useDispatch } from 'react-redux';
 import { incrementQty } from '../Redux/CartSlice';
 import { decrementQty } from '../Redux/CartSlice';
+import { toast } from 'react-toastify';
 function CartCard({image, name, quantity, price, id}) {
     const dispatch = useDispatch();
     
@@ -25,7 +26,7 @@ function CartCard({image, name, quantity, price, id}) {
             </div>
             <div className='w-[25%] h-[80%] flex flex-col gap-4 md:gap-5 items-end pr-2 lg:pr-6 mt-2'>
                 <span className='font-semibold text-sm lg:text-lg text-pink-400'>Rs {price && price}/-</span>
-                <ImBin onClick={()=>dispatch(removeCart(id))} className='md:text-lg cursor-pointer' />
+                <ImBin onClick={()=> {dispatch(removeCart(id)), toast.error("remove dish") }} className='md:text-lg cursor-pointer' />
             </div>
         </div>
     )

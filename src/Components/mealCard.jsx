@@ -4,6 +4,7 @@ import { food_items } from '../food';
 import { GiChickenOven } from "react-icons/gi";
 import {useDispatch} from 'react-redux'
 import { addCart } from '../Redux/CartSlice';
+import {toast} from 'react-toastify'
 function MealCard({meal}) {
     const dispatch = useDispatch();
     return (
@@ -25,7 +26,7 @@ function MealCard({meal}) {
                     </p>
                 </div>
             </div>
-            <button onClick={() => dispatch(addCart({meal}))} className='text-md md:text-lg font-semibold text-white bg-pink-400 w-full rounded-sm mt-3 mb-1 transition-all cursor-pointer hover:bg-pink-500'>Add to dish</button>
+            <button onClick={() => {dispatch(addCart({meal})), toast.success("add to dish")}} className='text-md md:text-lg font-semibold text-white bg-pink-400 w-full rounded-sm mt-3 mb-1 transition-all cursor-pointer hover:bg-pink-500'>Add to dish</button>
        </>
     )
 }
