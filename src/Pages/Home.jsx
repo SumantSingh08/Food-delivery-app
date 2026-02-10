@@ -8,8 +8,9 @@ import { RxCross2 } from "react-icons/rx";
 import CartCard from '../Components/CartCard'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
+import Login from './Login'
 function Home() {
-    const { foodList, setFoodList, input, setInput, showCart, setShowCart, nullFood, setNullFood } = useContext(dataContext);
+    const { foodList, setFoodList, input, setInput, showCart, setShowCart, nullFood, setNullFood, showLogin } = useContext(dataContext);
 
     const item = useSelector((state) => state.cart.cartItems);
     const subTotal = item.reduce((total, item) => total + item.meal.price * item.meal.food_quantity, 0);
@@ -18,8 +19,8 @@ function Home() {
     const total = Math.floor(subTotal + delivery + taxes);
 
     const foodempty = nullFood;
-    console.log("food empty", foodempty);   
-    
+    console.log("food empty", foodempty);
+
 
 
 
@@ -27,7 +28,7 @@ function Home() {
         const data = food_items.filter((item) => item.food_name.includes(input) || item.food_name.toLowerCase().includes(input));
         if (data && data.length > 0) {
             setFoodList(data);
-            
+
         } else {
             setFoodList('');
             setNullFood("No items found!");
@@ -42,71 +43,114 @@ function Home() {
         }
     }
     return (
-        <div className='w-full min-h-screen bg-slate-300 '>
-            
+        <div className='w-full min-h-screen  bg-[#FFF7ED] '>
+
             <div className='w-full '>
                 <Navbar />
             </div>
-            <div className='flex flex-wrap gap-4 justify-center items-center mx-auto pt-32 px-3 '>
+
+
+            <div className="grid grid-cols-3 md:grid-cols-7 gap-2 md:gap-4 justify-center items-center mx-auto pt-28 px-4 max-w-5xl">
                 {Cards.map((card) => (
-                    <div onClick={() => categories(card.name)} key={card.name} className='flex flex-col text-center items-center bg-white  w-24 h-24 md:w-28 md:h-28 md:py-1  rounded-md hover:bg-pink-100 cursor-pointer  shadow-lg duration-300'>
-                        <div className='pt-1 items-center'>
+                    <div
+                        key={card.name}
+                        onClick={() => categories(card.name)}
+                        className="
+                        flex flex-col items-center justify-center
+                      bg-white w-22 h-22 md:w-28 md:h-28
+                        rounded-xl shadow-sm
+                      hover:bg-pink-50 hover:shadow-md
+                        transition cursor-pointer "
+                    >
+                        <div className="text-2xl text-pink-500">
                             {card.icon}
                         </div>
-                        <div className='font-bold text-md md:text-lg items-center '>
+                        <span className="mt-1 text-sm md:text-base font-semibold text-gray-700">
                             {card.name}
-                        </div>
+                        </span>
                     </div>
                 ))}
             </div>
-            <div className='w-full flex flex-wrap mx-auto justify-center mt-14 items-center md:max-w-7xl gap-7 pb-6 md:pb-8'>
-                {foodList ? foodList.map((item) => (
-                    <div key={item.id} className=' px-2 py-2 bg-white  rounded-md shadow-lg w-64 h-auto '>
-                        <MealCard meal={item} />
+
+            {showLogin === true ? <Login /> : ""}
+            <div className="w-full flex flex-wrap justify-center gap-6 mt-14 px-4 pb-10 max-w-7xl mx-auto">
+                {foodList && foodList.length > 0 ? (
+                    foodList.map((item) => (
+                        <div
+                            key={item.id}
+                            className="bg-white rounded-xl shadow-sm hover:shadow-md transition w-[280px]"
+                        >
+                            <MealCard meal={item} />
+                        </div>
+                    ))
+                ) : (
+                    <div className="text-xl font-semibold text-gray-600 text-center">
+                        {nullFood}
                     </div>
-                )) : <div className='text-black text-2xl font-semibold text-center'>{nullFood}</div>}
+                )}
             </div>
-            <div className={`w-full md:w-[40%]  h-screen bg-white p-2 md:p-4 fixed top-0 right-0 overflow-y-auto shadow-xl transition-all duration-600 ${showCart ? "translate-x-0" : "translate-x-full"}`}>
-                <div className='flex justify-between items-center w-full'>
-                    <span className='text-md md:text-2xl font-semibold text-pink-500'>order items</span>
-                    <RxCross2 onClick={() => setShowCart(false)} className='text-2xl font-semibold text-pink-500 hover:text-gray-400 cursor-pointer' />
+            <div className={`fixed top-0 right-0 z-50 pb-10 md:pb-0 w-full md:w-[38%] h-screen bg-white shadow-2xl transition-transform duration-500 ${showCart ? "translate-x-0" : "translate-x-full"}`}>
+                <div className="flex justify-between items-center border-b px-4 py-4">
+                    <h2 className="text-lg md:text-2xl font-semibold text-pink-500">
+                        Your Cart
+                    </h2>
+                    <RxCross2
+                        onClick={() => setShowCart(false)}
+                        className="text-2xl text-pink-500 hover:text-gray-400 cursor-pointer"
+                    />
                 </div>
-                <div className='w-full flex flex-col gap-4 md:gap-6 my-6'>
-                    {item && item.length > 0 ? item.map((item) => (
-                        <div key={item.meal.id}>
-                            <CartCard image={item.meal.food_image} name={item.meal.food_name} quantity={item.meal.food_quantity} price={item.meal.price} id={item.meal.id} />
+
+                <div className="flex flex-col gap-4 px-4 py-6 overflow-y-auto h-[60%]">
+                    {item && item.length > 0 ? (
+                        item.map((item) => (
+                            <CartCard
+                                key={item.meal.id}
+                                image={item.meal.food_image}
+                                name={item.meal.food_name}
+                                quantity={item.meal.food_quantity}
+                                price={item.meal.price}
+                                id={item.meal.id}
+                            />
+                        ))
+                    ) : (
+                        <div className="text-center text-lg font-semibold text-gray-500">
+                            No items in cart
                         </div>
-                    )) : <div className=' text-md md:text-2xl font-semibold text-center text-black pt-4'>No items in cart</div>}
+                    )}
                 </div>
-                {item && item.length > 0 && 
-                <div className='w-full p-4 md:p-6 flex flex-col text-center gap-4'>
-                    <div className='w-full  flex flex-col text-center  gap-2 border-t-2 border-b-2 border-gray-400 py-3 '>
-                        <div className='flex justify-between'>
-                            <h3 className='text-sm font-semibold '>Subtotal</h3>
-                            <span className='text-sm font-semibold text-pink-400'>Rs {subTotal && subTotal}/-</span>
+
+                {item && item.length > 0 && (
+                    <div className="px-4 py-4 border-t bg-gray-50 ">
+
+                        <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                                <span>Subtotal</span>
+                                <span className="text-pink-500 font-semibold">₹ {subTotal}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Delivery Fee</span>
+                                <span className="text-pink-500 font-semibold">₹ {delivery}</span>
+                            </div>
+                            <div className="flex justify-between">
+                                <span>Taxes</span>
+                                <span className="text-pink-500 font-semibold">₹ {taxes}</span>
+                            </div>
                         </div>
-                        <div className='flex justify-between'>
-                            <h3 className='text-sm font-semibold '>Delivery Fee</h3>
-                            <span className='text-sm font-semibold text-pink-400'>Rs {delivery && delivery}/-</span>
+
+                        <div className="flex justify-between mt-4 text-lg font-bold">
+                            <span>Total</span>
+                            <span className="text-pink-600">₹ {total}</span>
                         </div>
-                        <div className='flex justify-between'>
-                            <h3 className='text-sm font-semibold '>Taxes</h3>
-                            <span className='text-sm font-semibold text-pink-400'>Rs {taxes && taxes}/-</span>
-                        </div>
-                    </div>
-                    <div className='flex justify-between text-center items-cente '>
-                        <h3 className='text-md font-semibold '>Total</h3>
-                        <span className='text-sm md:text-md lg:text-lg font-semibold text-pink-400'>Rs {total && total}/-</span>
-                    </div>
-                    <div className='w-full  '>
+
                         <button
-                        onClick={() => toast.success("Order Placed Successfully!")}
-                            className='text-md font-semibold text-white bg-pink-400 w-full rounded-sm mt-4  transition-all cursor-pointer hover:bg-pink-500'>
-                            Placed Order
+                            onClick={() => toast.success("Order Placed Successfully!")}
+                            className="w-full mt-5 bg-pink-500 text-white py-2 rounded-xl font-semibold hover:bg-pink-600 transition cursor-pointer "
+                        >
+                            Place Order
                         </button>
                     </div>
-                </div>
-                }
+                )}
+
 
             </div>
 

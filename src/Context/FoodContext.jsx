@@ -6,6 +6,7 @@ function FoodContext({children}) {
     const [foodList, setFoodList] = useState(food_items);
     const [showCart, setShowCart] = useState(false);
     const [nullFood, setNullFood] = useState("");
+    const [showLogin, setShowLogin] = useState(false);
     const data = {
         input,
         setInput,
@@ -15,6 +16,8 @@ function FoodContext({children}) {
         setShowCart,
         nullFood,
         setNullFood,
+        showLogin,
+        setShowLogin
     }
     return (
         <dataContext.Provider value={data}>
