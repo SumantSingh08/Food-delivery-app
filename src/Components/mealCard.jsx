@@ -19,7 +19,7 @@ function MealCard({ meal }) {
                     />
                 </div>
 
-                <div className="p-4">
+                <div className="p-2">
 
                     <h3 className="text-base md:text-lg font-bold text-gray-800 truncate">
                         {meal.food_name}

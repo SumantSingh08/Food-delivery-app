@@ -45,12 +45,12 @@ function Navbar() {
 
     <div className="hidden md:flex items-center gap-4">
 
-      <button
+      {/* <button
         onClick={() => setShowLogin(true)}
         className="bg-pink-500 text-white px-5 py-2 rounded-full font-semibold hover:bg-pink-600 active:scale-95 transition cursor-pointer"
       >
         Login
-      </button>
+      </button> */}
 
       <div
         onClick={() => setShowCart(true)}
@@ -78,7 +78,7 @@ function Navbar() {
   {menuOpen && (
     <div className="md:hidden bg-white border-t border-gray-200 px-4 py-4 space-y-3">
 
-      <button
+      {/* <button
         onClick={() => {
           setShowLogin(true);
           setMenuOpen(false);
@@ -86,7 +86,7 @@ function Navbar() {
         className="w-full bg-pink-500 text-white py-2 rounded-xl font-semibold hover:bg-pink-600 transition"
       >
         Login
-      </button>
+      </button> */}
 
       <button
         onClick={() => {

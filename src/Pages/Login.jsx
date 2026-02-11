@@ -15,7 +15,7 @@ function Login() {
     console.log("Form Data:", data);
     alert("Form submitted successfully!");
     navigate("/")
-};
+    };
     return (
         <div className='max-w-6xl  h-auto mx-4 rounded-lg  place-self-center  bg-white fixed inset-0 z-50'>
             <form onSubmit={handleSubmit(submit)} className=' place-self-center p-6'>
