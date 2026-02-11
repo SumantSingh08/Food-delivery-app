@@ -73,7 +73,7 @@ function Home() {
             </div>
 
             {showLogin === true ? <Login /> : ""}
-            <div className="w-full grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 place-items-center px-2 gap-6 md:gap-4 mt-14  pb-10 md:max-w-7xl mx-auto">
+            <div className="w-full grid grid-cols-1  md:grid-cols-4  place-items-center px-2 gap-6 md:gap-4 mt-14  pb-10 md:max-w-7xl mx-auto">
                 {foodList && foodList.length > 0 ? (
                     foodList.map((item) => (
                         <div
