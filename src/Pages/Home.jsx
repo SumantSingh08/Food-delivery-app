@@ -50,7 +50,7 @@ function Home() {
             </div>
 
 
-            <div className="grid grid-cols-3 md:grid-cols-7 gap-2 md:gap-4 justify-center items-center mx-auto pt-28 px-4 max-w-5xl">
+            <div className="grid grid-cols-3 md:grid-cols-7 gap-2 md:gap-4 place-items-center mx-auto pt-28 px-4 max-w-5xl">
                 {Cards.map((card) => (
                     <div
                         key={card.name}
@@ -78,7 +78,7 @@ function Home() {
                     foodList.map((item) => (
                         <div
                             key={item.id}
-                            className="bg-white rounded-xl shadow-sm hover:shadow-md transition w-[285px]"
+                            className="bg-white rounded-xl shadow-sm hover:shadow-md transition w-[290px] md:w-[285px]"
                         >
                             <MealCard meal={item} />
                         </div>
